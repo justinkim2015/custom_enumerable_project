@@ -15,10 +15,30 @@ module Enumerable
     final_array
   end
 
-  
+  # def my_all?
+  #   my_each do |value|
+  #     if (yield value) == true
+  #       true
+  #     else
+  #       return false
+  #     end
+  #   end
+  # end
+
+  def my_all?
+    array = []
+    my_each do |value|
+      array << (yield value)
+    end
+    if array.uniq.count == 1
+      true
+    else
+      false
+    end
+  end
 end
 
-# bundle exec rspec spec/my_select_spec.rb
+# bundle exec rspec spec/my_all_spec.rb
 # You will first have to define my_each
 # on the Array class. Methods defined in
 # your enumerable module will have access
@@ -31,5 +51,5 @@ class Array
   end
 end
 
-enumerable = [4,23,5,21,3,2,1,8]
-enumerable.my_select { |value| value > 10 }
+enumerable = [1, 1, 2, 3, 5, 8, 13, 21, 34]
+enumerable.my_all? { |value| value > 0 }
